@@ -125,8 +125,6 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
     }
 
     private void isTestLabDevice(CallbackContext callbackContext) {
-        try {
-            callbackContext.sendPluginResult(new PluginResult(Status.OK, isTestLabDevice));
-        } catch (Exception e) {}
+        callbackContext.success(isTestLabDevice?1:0);
     }
 }
