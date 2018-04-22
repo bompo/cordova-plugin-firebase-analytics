@@ -3,12 +3,14 @@ package by.chemerisuk.cordova.firebase;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.provider.Settings;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.PluginResult.Status;
 
 import org.json.JSONArray;
 import org.json.JSONException;
