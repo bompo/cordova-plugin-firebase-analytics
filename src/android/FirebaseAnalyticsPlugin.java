@@ -8,7 +8,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.PluginResult.Status;
+import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +32,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
 
         this.firebaseAnalytics = FirebaseAnalytics.getInstance(context);
 
-        String testLabSetting = Settings.System.getString(getContentResolver(), "firebase.test.lab");
+        String testLabSetting = Settings.System.getString(context.getContentResolver(), "firebase.test.lab");
         if ("true".equals(testLabSetting)) {
             isTestLabDevice = true;
             this.firebaseAnalytics.setAnalyticsCollectionEnabled(false);  //Disable Analytics Collection
