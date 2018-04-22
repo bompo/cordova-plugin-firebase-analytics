@@ -21,6 +21,8 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
 
     private FirebaseAnalytics firebaseAnalytics;
 
+    private boolean isTestLabDevice;
+
     @Override
     protected void pluginInitialize() {
         Log.d(TAG, "Starting Firebase Analytics plugin");
@@ -28,6 +30,12 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         Context context = this.cordova.getActivity().getApplicationContext();
 
         this.firebaseAnalytics = FirebaseAnalytics.getInstance(context);
+
+        String testLabSetting = Settings.System.getString(getContentResolver(), "firebase.test.lab");
+        if ("true".equals(testLabSetting)) {
+            isTestLabDevice = true;
+            this.firebaseAnalytics.setAnalyticsCollectionEnabled(false);  //Disable Analytics Collection
+        }
     }
 
     @Override
@@ -50,6 +58,10 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
             return true;
         } else if ("setCurrentScreen".equals(action)) {
             setCurrentScreen(callbackContext, args.getString(0));
+
+            return true;
+        } else if ("isTestLabDevice".equals(action)) {
+            isTestLabDevice(callbackContext);
 
             return true;
         }
@@ -107,5 +119,9 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
                 callbackContext.success();
             }
         });
+    }
+
+    private void isTestLabDevice(CallbackContext callbackContext) {
+        callbackContext.success(isTestLabDevice);
     }
 }
