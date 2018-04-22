@@ -8,6 +8,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult.Status;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,6 +123,8 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
     }
 
     private void isTestLabDevice(CallbackContext callbackContext) {
-        callbackContext.success(isTestLabDevice);
+        try {
+            callbackContext.sendPluginResult(new PluginResult(Status.OK, isTestLabDevice));
+        } catch (Exception e) {}
     }
 }
