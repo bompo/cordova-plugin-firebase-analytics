@@ -26,5 +26,10 @@ module.exports = {
         return new Promise(function(resolve, reject) {
             exec(resolve, reject, PLUGIN_NAME, "setCurrentScreen", [name]);
         });
+    },
+    isTestLabDevice: function() {
+        return new Promise(function(resolve, reject) {
+            exec(resolve, reject, PLUGIN_NAME, "isTestLabDevice");
+        });
     }
 };
