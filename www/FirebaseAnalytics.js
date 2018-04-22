@@ -28,8 +28,6 @@ module.exports = {
         });
     },
     isTestLabDevice: function() {
-        return new Promise(function(resolve, reject) {
-            exec(resolve, reject, PLUGIN_NAME, "isTestLabDevice");
-        });
+        exec(resolve, reject, PLUGIN_NAME, "isTestLabDevice", []);
     }
 };
