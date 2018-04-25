@@ -44,7 +44,7 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("logEvent".equals(action)) {
-            logEvent(callbackContext, args.getString(0), args.getJSONObject(1));
+            logEvent(callbackContext, args.getString(0), args.getString(1), args.getString(2));
 
             return true;
         } else if ("setUserId".equals(action)) {
@@ -72,19 +72,11 @@ public class FirebaseAnalyticsPlugin extends CordovaPlugin {
         return false;
     }
 
-    private void logEvent(CallbackContext callbackContext, String name, JSONObject params) throws JSONException {
+    private void logEvent(CallbackContext callbackContext, String name, String propKey, String propValue) throws JSONException {
         Bundle bundle = new Bundle();
-        Iterator iter = params.keys();
-
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            Object value = params.get(key);
-
-            if (value instanceof Integer || value instanceof Double) {
-                bundle.putFloat(key, ((Number) value).floatValue());
-            } else {
-                bundle.putString(key, value.toString());
-            }
+        if(propKey != null && !propKey.isEmpty() &&
+           propValue != null && !propValue.isEmpty()) {
+            bundle.putString(propKey, propValue);
         }
 
         this.firebaseAnalytics.logEvent(name, bundle);
