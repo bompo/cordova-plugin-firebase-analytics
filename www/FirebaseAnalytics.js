@@ -2,9 +2,9 @@ var exec = require("cordova/exec");
 var PLUGIN_NAME = "FirebaseAnalytics";
 
 module.exports = {
-    logEvent: function(name, params) {
+    logEvent: function(name, propKey, propValue) {
         return new Promise(function(resolve, reject) {
-            exec(resolve, reject, PLUGIN_NAME, "logEvent", [name, params || {}]);
+            exec(resolve, reject, PLUGIN_NAME, "logEvent", [name, propKey, propValue]);
         });
     },
     setUserId: function(userId) {
